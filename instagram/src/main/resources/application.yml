@@ -32,18 +32,17 @@ spring:
     multipart:
       enabled: true
       max-file-size: 2MB
-
+      
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
-      
+
   security:
     user:
       name: test
-      password: 1234   
+      password: 1234    
       
-
 file:
   path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/upload/
