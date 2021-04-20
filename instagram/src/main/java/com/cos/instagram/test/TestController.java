@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.instagram.model.Follow;
 import com.cos.instagram.model.Image;
 import com.cos.instagram.model.Likes;
 import com.cos.instagram.model.User;
@@ -123,5 +124,61 @@ public class TestController {
 		like.setImage(img1);
 		
 		return like;
+	}
+	
+	@GetMapping("/test/follow")
+	public @ResponseBody List<Follow> getFollows() {
+		User user1 = new User();
+		user1.setId(1l);
+		user1.setUserName("cos");
+		user1.setName("홍길동");
+		user1.setEmail("cos@nate.com");
+		user1.setProfileImage("my.jpg");
+		
+		User user2 = new User();
+		user2.setId(2l);
+		user2.setUserName("ssar");
+		user2.setName("장동건");
+		user2.setEmail("ssar@nate.com");
+		user2.setProfileImage("you.jpg");
+		
+		User user3 = new User();
+		user3.setId(3l);
+		user3.setUserName("love");
+		user3.setName("유해진");
+		user3.setEmail("love@naver.com");
+		user3.setProfileImage("love.jpg");
+		
+		Follow follow1 = new Follow();
+		follow1.setId(1l);
+		follow1.setFromUser(user1);
+		follow1.setToUser(user2);
+		
+		Follow follow2 = new Follow();
+		follow2.setId(2l);
+		follow2.setFromUser(user1);
+		follow2.setToUser(user3);
+		
+		Follow follow3 = new Follow();
+		follow3.setId(3l);
+		follow3.setFromUser(user2);
+		follow3.setToUser(user1);
+		
+		List<Follow> follows = new ArrayList<Follow>();
+		follows.add(follow1);
+		follows.add(follow2);
+		follows.add(follow3);
+		
+		return follows;
+	}
+	
+	@GetMapping("/test/login")
+	public String testLogin() {
+		return "/auth/login";
+	}
+	
+	@GetMapping("/test/join")
+	public String testJoin() {
+		return "/auth/join";
 	}
 }
