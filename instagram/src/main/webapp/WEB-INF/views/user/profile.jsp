@@ -27,9 +27,49 @@
       <div class="profile__info">
         <div class="profile__title">
           <h1>serranoarevalo</h1>
-          <a href="edit-profile.html">
-            <button class="profile_follow_btn">팔로우</button>
-          </a>
+          <div id="follow_check">
+	          <c:choose>
+	          	<c:when test="${followCheck eq 1}">
+	            	<button onclick="follow(false)" class="profile_edit_btn">팔로잉</button>
+	          	</c:when>
+	          	<c:otherwise>
+	            	<button onclick="follow(true)" class="profile_follow_btn">팔로우</button>
+	          	</c:otherwise>
+	          </c:choose>
+          </div>
+          
+          <script>
+          	function follow(check){
+              	console.log(`${toUser.id}`);
+              	// true -> follow
+              	// false -> unFollow
+				let url = "/follow/"+${toUser.id};
+				if(check){
+					fetch(url,{
+						method: "POST"
+					}).then(function(res){
+						return res.text();
+					}).then(function(res){
+						if(res === "ok"){
+							let follow_check_el = document.querySelector("#follow_check");
+							follow_check_el.innerHTML = '<button onclick="follow(false)" class="profile_edit_btn">팔로잉</button>';
+						}
+					});
+				}else{
+					fetch(url,{
+						method: "DELETE"
+					}).then(function(res){
+						return res.text();
+					}).then(function(res){
+						if(res === "ok"){
+							let follow_check_el = document.querySelector("#follow_check");
+							follow_check_el.innerHTML = '<button onclick="follow(true)" class="profile_follow_btn">팔로우</button>';
+						}
+					});
+				}
+              }
+          </script>
+          
           <a href="edit-profile.html">
             <button class="profile_edit_btn">Edit Profile</button>
           </a>
@@ -182,17 +222,9 @@
       </div>
     </div>
   </main>
+  
+  <script src="/js/follow.js"></script>
   <%@ include file = "../include/footer.jsp" %>
-  <div class="profile__overlay">
-    <i class="fa fa-times"></i>
-    <div class="profile__overlay-container">
-      <a href="#" class="profile__overlay-link">Change password</a>
-      <a href="#" class="profile__overlay-link">Authorize Apps</a>
-      <a href="#" class="profile__overlay-link">Notifications</a>
-      <a href="#" class="profile__overlay-link" id="logout">Log Out</a>
-      <a href="#" class="profile__overlay-link" id="cancel">Cancel</a>
-    </div>
-  </div>
 
   <script>
       $(function() {

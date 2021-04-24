@@ -3,6 +3,7 @@ package com.cos.instagram.repository;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.cos.instagram.model.Follow;
 
@@ -13,5 +14,5 @@ public interface FollowRepository extends JpaRepository<Follow, Long>{
 	int deleteByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
 
 	// follow 유무
-	int findByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
+	int countByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
 }

@@ -66,7 +66,7 @@ public class FollowController {
 		
 		followRepository.deleteByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());
 		
-		List<Follow> follows = followRepository.findAll();
+//		List<Follow> follows = followRepository.findAll();
 		return "ok";
 	}
 }
