@@ -6,31 +6,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Edit Profile | Vitogram</title>
+  <title>Vitogram</title>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     rel="stylesheet">
   <link rel="shortcut icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <nav class="navigation">
-    <a href="feed.html">
-      <img src="/images/logo.png" />
-    </a>
-    <input type="text" placeholder="Search">
-    <div class="navigation__links">
-      <a href="explore.html" class="navigation__link">
-          <i class="fa fa-compass"></i>
-      </a>
-      <a href="#" class="navigation__link">
-          <i class="fa fa-heart-o"></i>
-      </a>
-      <a href="profile.html" class="navigation__link">
-          <i class="fa fa-user-o"></i>
-      </a>
-    </div>
-  </nav>
-
+  <%@ include file = "../include/nav.jsp" %>
 
   <main id="edit-profile">
     <div class="edit-profile__container u-default-box">

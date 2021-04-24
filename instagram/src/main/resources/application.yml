@@ -9,6 +9,9 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  output:
+    ansi:
+      enabled: always
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +22,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
@@ -42,7 +45,12 @@ spring:
   security:
     user:
       name: test
-      password: 1234    
+      password: 1234
+
+logging:
+  level:  # 각 package 별로 로깅 레벨을 지정할 수 있다.
+    com.cos.instagram: info
+    com.cos.instagram.controller: debug 
       
 file:
   path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/upload/

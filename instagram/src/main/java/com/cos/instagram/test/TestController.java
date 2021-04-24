@@ -2,20 +2,38 @@ package com.cos.instagram.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.instagram.model.Follow;
 import com.cos.instagram.model.Image;
 import com.cos.instagram.model.Likes;
 import com.cos.instagram.model.User;
+import com.cos.instagram.repository.UserRepository;
 
 
 @Controller
 public class TestController {
 
+	private UserRepository userRepository;
+	
+	public TestController(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	@GetMapping("/test/user/{id}")
+	public @ResponseBody User testUser(@PathVariable Long id) {
+		Optional<User> optionalUser = userRepository.findById(id);
+		
+		User user = optionalUser.get();
+		
+		return user;
+	}
+	
 	@GetMapping("/test/home")
 	public String testHome() {
 		return "home";
@@ -201,4 +219,10 @@ public class TestController {
 	public String testImageUpload() {
 		return "/image/image_upload";
 	}
+	
+	@GetMapping("/test/explore")
+	public String testExplore() {
+		return "/image/explore";
+	}
+
 }

@@ -11,55 +11,15 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="shortcut icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="/css/modal.css">
 </head>
 
 <body>
-	<%@ include file="../include/nav.jsp" %>
+  <%@ include file = "../include/nav.jsp" %>
   <main id="profile">
-    <header class="profile__header">
-      <div class="avatar__container">
-          <form id="frm_profile_img" action="/user/profileUpload" method="post">
-            <input type="file" name="profileImage" style="display: none;"/>
-          </form>
-          <img src="/images/avatar.jpg" id="profile_image" style="cursor:pointer" />
-      </div>
-      <div class="profile__info">
-        <div class="profile__title">
-          <h1>serranoarevalo</h1>
-          <a href="edit-profile.html">
-            <button class="profile_follow_btn">팔로우</button>
-          </a>
-          <a href="edit-profile.html">
-            <button class="profile_edit_btn">Edit Profile</button>
-          </a>
-          <i class="fa fa-cog fa-lg"></i>
-        </div>
-        <ul class="profile__stats">
-          <li class="profile__stat">
-            <span class="profile__stat-number">313</span> posts
-          </li>
-          <li class="profile__stat">
-            <span class="profile__stat-number">4,444</span> followers
-          </li>
-          <li class="profile__stat">
-            <span class="profile__stat-number">44</span> following
-          </li>
-        </ul>
-        <p class="profile__bio">
-          <span class="profile__fullname">Nicolás Serrano Arévalo</span>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Voluptas repellendus cumque quo voluptatum voluptatem,
-          maxime nobis. Quae incidunt cum expedita facilis libero officiis,
-          delectus inventore tempore, ex nulla dolore cumque.
-          <a href="http://serranoarevalo.com" class="profile__link">serranoarevalo.com</a>
-        </p>
-      </div>
-    </header>
     <div class="profile__photo-grid">
       <div class="profile__photo-row">
         <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -72,7 +32,7 @@
           </a>
         </div>
         <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -85,48 +45,7 @@
           </a>
         </div>
         <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="profile__photo-row">
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -141,7 +60,7 @@
       </div>
       <div class="profile__photo-row">
         <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -154,7 +73,7 @@
           </a>
         </div>
         <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -167,7 +86,48 @@
           </a>
         </div>
         <div class="profile__photo">
-          <a href="image-detail.html">
+          <a href="/image-detail.html">
+            <img src="/images/feedPhoto.jpg">
+            <div class="profile__photo-overlay">
+              <span class="profile__photo-stat">
+                <i class="fa fa-heart"></i> 504
+              </span>
+              <span class="profile__photo-stat">
+                <i class="fa fa-comment"></i> 22
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="profile__photo-row">
+        <div class="profile__photo">
+          <a href="/image-detail.html">
+            <img src="/images/feedPhoto.jpg">
+            <div class="profile__photo-overlay">
+              <span class="profile__photo-stat">
+                <i class="fa fa-heart"></i> 504
+              </span>
+              <span class="profile__photo-stat">
+                <i class="fa fa-comment"></i> 22
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="profile__photo">
+          <a href="/image-detail.html">
+            <img src="/images/feedPhoto.jpg">
+            <div class="profile__photo-overlay">
+              <span class="profile__photo-stat">
+                <i class="fa fa-heart"></i> 504
+              </span>
+              <span class="profile__photo-stat">
+                <i class="fa fa-comment"></i> 22
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="profile__photo">
+          <a href="/image-detail.html">
             <img src="/images/feedPhoto.jpg">
             <div class="profile__photo-overlay">
               <span class="profile__photo-stat">
@@ -182,7 +142,7 @@
       </div>
     </div>
   </main>
-  <%@ include file = "../include/footer.jsp" %>
+    <%@ include file = "../include/footer.jsp" %>
   <div class="profile__overlay">
     <i class="fa fa-times"></i>
     <div class="profile__overlay-container">
@@ -193,6 +153,8 @@
       <a href="#" class="profile__overlay-link" id="cancel">Cancel</a>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="js/app.js"></script>
 
   <script>
       $(function() {
