@@ -28,6 +28,7 @@
         <div class="profile__title">
           <h1>${user.userName}</h1>
           <div id="follow_check">
+          	<c:if test="${principal.user.id ne user.id}">
 	          <c:choose>
 	          	<c:when test="${followCheck eq 1}">
 	            	<button onclick="follow(false, ${user.id})" class="profile_edit_btn">팔로잉</button>
@@ -36,16 +37,15 @@
 	            	<button onclick="follow(true, ${user.id})" class="profile_follow_btn">팔로우</button>
 	          	</c:otherwise>
 	          </c:choose>
+	        </c:if>
           </div>
-          
-          <script>
-          	
-          </script>
-          
-          <a href="/user/edit/${user.id}">
-            <button class="profile_edit_btn">Edit Profile</button>
-          </a>
-          <i class="fa fa-cog fa-lg"></i>
+        
+	       	<c:if test="${principal.user.id eq user.id}">
+	          <a href="/user/edit/${principal.user.id}">
+	            <button class="profile_edit_btn">Edit Profile</button>
+	          </a>
+	          <i class="fa fa-cog fa-lg"></i>
+	        </c:if>
         </div>
         <ul class="profile__stats">
           <li class="profile__stat">
@@ -204,7 +204,7 @@
       <a href="#" class="profile__overlay-link" id="cancel">Cancel</a>
     </div>
   </div>
-  <script src="/js/follow.js"></script>
+  <script src="/js/profile.js"></script>
   <%@ include file = "../include/footer.jsp" %>
   <script>
       $(function() {

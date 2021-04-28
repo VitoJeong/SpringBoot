@@ -16,57 +16,28 @@
 	<%@ include file="../include/nav.jsp" %>
 
   <main id="explore">
+  
     <ul class="explore__users u-default-box">
+    
+   	<c:forEach var="follow" items="${follows}">
       <li class="explore__user">
         <div class="explore__content">
           <img src="/images/avatar.jpg" />
           <div class="explore__info">
-            <span class="explore__username">serranoarevalo</span>
-            <span class="explore__full-name">Nicolás Serrano Arévalo</span>
+            <span class="explore__username">${follow.toUser.userName}</span>
           </div>
         </div>
-        <button>Follow</button>
+        <c:choose>
+        	<c:when test="${follows.followState eq true}">
+      			<button onclick="follow(false, ${user.toUser.id})" class="following_btn">팔로잉</button>
+        	</c:when>
+        	<c:otherwise>
+        		<button onclick="follow(true, ${user.toUser.id})" class="following_btn">팔로우</button>
+        	</c:otherwise>
+        </c:choose>
       </li>
-      <li class="explore__user">
-        <div class="explore__content">
-          <img src="/images/avatar.jpg" />
-          <div class="explore__info">
-            <span class="explore__username">serranoarevalo</span>
-            <span class="explore__full-name">Nicolás Serrano Arévalo</span>
-          </div>
-        </div>
-        <button>Follow</button>
-      </li>
-      <li class="explore__user">
-        <div class="explore__content">
-          <img src="/images/avatar.jpg" />
-          <div class="explore__info">
-            <span class="explore__username">serranoarevalo</span>
-            <span class="explore__full-name">Nicolás Serrano Arévalo</span>
-          </div>
-        </div>
-        <button>Follow</button>
-      </li>
-      <li class="explore__user">
-        <div class="explore__content">
-          <img src="/images/avatar.jpg" />
-          <div class="explore__info">
-            <span class="explore__username">serranoarevalo</span>
-            <span class="explore__full-name">Nicolás Serrano Arévalo</span>
-          </div>
-        </div>
-        <button>Follow</button>
-      </li>
-      <li class="explore__user">
-        <div class="explore__content">
-          <img src="/images/avatar.jpg" />
-          <div class="explore__info">
-            <span class="explore__username">serranoarevalo</span>
-            <span class="explore__full-name">Nicolás Serrano Arévalo</span>
-          </div>
-        </div>
-        <button>Follow</button>
-      </li>
+     </c:forEach>
+      
     </ul>
   </main>
   	<%@ include file="../include/footer.jsp" %>

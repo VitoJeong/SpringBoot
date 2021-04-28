@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,21 +68,40 @@ public class FollowController {
 		
 		followRepository.deleteByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());
 		
-//		List<Follow> follows = followRepository.findAll();
-		return "ok";
+		List<Follow> follows = followRepository.findAll();
+		return "ok"; // ResponseEntity
 	}
 	
 	@GetMapping("/follow/follower/{id}")
-	public String followFollower(@PathVariable Long id) {
+	public String followFollower(@PathVariable Long id, Model model) {
 		
 		// 팔로워 리스트
+		List<Follow> follows = followRepository.findByToUserId(id);
+		model.addAttribute("follower", follows);
 		return "follow/follow";
 	}
 	
 	@GetMapping("/follow/follow/{id}")
-	public String followFollow(@PathVariable Long id) {
+	public String followFollow
+	(
+			@PathVariable Long id, 
+			@AuthenticationPrincipal MyUserDetail userDetail
+	) 
+	{
 		
 		// 팔로잉 리스트
+		List<Follow> follows = followRepository.findByFromUserId(id);
+		
+		// 내 팔로잉 리스트
+		List<Follow> principalFollows = followRepository.findByFromUserId(userDetail.getUser().getId());
+		
+		for(Follow f1 : follows) {
+			for(Follow f2 : principalFollows) {
+				if(f1.getToUser().equals(f2.getToUser())) {
+					f1.setFollowState(true);
+				}
+			}
+		}
 		
 		return "follow/follow";
 	}
