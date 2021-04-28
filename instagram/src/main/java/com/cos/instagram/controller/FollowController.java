@@ -73,19 +73,38 @@ public class FollowController {
 	}
 	
 	@GetMapping("/follow/follower/{id}")
-	public String followFollower(@PathVariable Long id, Model model) {
+	public String followFollower
+	(
+			@PathVariable Long id, 
+			@AuthenticationPrincipal MyUserDetail userDetail,
+			Model model
+	) 
+	{
 		
 		// 팔로워 리스트
-		List<Follow> follows = followRepository.findByToUserId(id);
-		model.addAttribute("follower", follows);
-		return "follow/follow";
+		List<Follow> followers = followRepository.findByToUserId(id);
+		
+		// 내 팔로잉 리스트
+		List<Follow> principalFollowers = followRepository.findByFromUserId(userDetail.getUser().getId());
+		
+		for(Follow f1 : followers) {
+			for(Follow f2 : principalFollowers) {
+				if(f1.getFromUser().getId().equals(f2.getToUser().getId())) {
+					f1.setFollowState(true);
+				}
+			}
+		}
+		
+		model.addAttribute("followers", followers);
+		return "follow/follower";
 	}
 	
 	@GetMapping("/follow/follow/{id}")
 	public String followFollow
 	(
 			@PathVariable Long id, 
-			@AuthenticationPrincipal MyUserDetail userDetail
+			@AuthenticationPrincipal MyUserDetail userDetail,
+			Model model
 	) 
 	{
 		
@@ -97,11 +116,13 @@ public class FollowController {
 		
 		for(Follow f1 : follows) {
 			for(Follow f2 : principalFollows) {
-				if(f1.getToUser().equals(f2.getToUser())) {
+				if(f1.getToUser().getId().equals(f2.getToUser().getId())) {
 					f1.setFollowState(true);
 				}
 			}
 		}
+		
+		model.addAttribute("follows", follows);
 		
 		return "follow/follow";
 	}

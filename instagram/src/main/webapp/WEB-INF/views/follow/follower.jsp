@@ -19,21 +19,21 @@
   
     <ul class="explore__users u-default-box">
     
-   	<c:forEach var="follow" items="${follows}" varStatus="status">
+   	<c:forEach var="follower" items="${followers}">
       <li class="explore__user">
         <div class="explore__content">
           <img src="/images/avatar.jpg" />
           <div class="explore__info">
-            <span class="explore__username">${follow.toUser.userName}</span>
+            <span class="explore__username">${follower.fromUser.userName}</span>
           </div>
         </div>
-        <c:if test="${principal.user.id ne follow.toUser.id}">
+        <c:if test="${principal.user.id ne follower.fromUser.id}">
 	        <c:choose>
-	        	<c:when test="${follow.followState eq true}">
-	      			<button onclick="follow(false, ${follow.toUser.id})" class="following_btn">팔로잉</button>
+	        	<c:when test="${follower.followState eq true}">
+	      			<button onclick="follow(false, ${follower.fromUser.id})" class="following_btn">팔로잉</button>
 	        	</c:when>
 	        	<c:otherwise>
-	        		<button onclick="follow(true, ${follow.toUser.id})" class="follow_btn">팔로우</button>
+	        		<button onclick="follow(true, ${follower.fromUser.id})" class="follow_btn">팔로우</button>
 	        	</c:otherwise>
 	        </c:choose>
         </c:if>
