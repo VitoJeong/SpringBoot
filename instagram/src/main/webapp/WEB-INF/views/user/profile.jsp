@@ -204,7 +204,6 @@
       <a href="#" class="profile__overlay-link" id="cancel">Cancel</a>
     </div>
   </div>
-  <script src="/js/profile.js"></script>
   <%@ include file = "../include/footer.jsp" %>
   <script>
       $(function() {

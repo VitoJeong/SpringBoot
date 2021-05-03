@@ -19,7 +19,7 @@
   
     <ul class="explore__users u-default-box">
     
-   	<c:forEach var="follower" items="${followers}">
+   	<c:forEach var="follower" items="${followers}" varStatus="status">
       <li class="explore__user">
         <div class="explore__content">
           <img src="/images/avatar.jpg" />
@@ -27,22 +27,25 @@
             <span class="explore__username">${follower.fromUser.userName}</span>
           </div>
         </div>
+        
+        <div id="follow_item_${status.count}">
         <c:if test="${principal.user.id ne follower.fromUser.id}">
 	        <c:choose>
 	        	<c:when test="${follower.followState eq true}">
-	      			<button onclick="follow(false, ${follower.fromUser.id})" class="following_btn">팔로잉</button>
+	      			<button onclick="follow(false, ${follower.fromUser.id}, ${status.count})" class="following_btn">팔로잉</button>
 	        	</c:when>
 	        	<c:otherwise>
-	        		<button onclick="follow(true, ${follower.fromUser.id})" class="follow_btn">팔로우</button>
+	        		<button onclick="follow(true, ${follower.fromUser.id}, ${status.count})" class="follow_btn">팔로우</button>
 	        	</c:otherwise>
 	        </c:choose>
         </c:if>
+        </div>
       </li>
      </c:forEach>
       
     </ul>
   </main>
   	<%@ include file="../include/footer.jsp" %>
-  
+    <script src="/js/follow.js"></script>
 </body>
 </html>

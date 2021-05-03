@@ -27,22 +27,26 @@
             <span class="explore__username">${follow.toUser.userName}</span>
           </div>
         </div>
-        <c:if test="${principal.user.id ne follow.toUser.id}">
-	        <c:choose>
-	        	<c:when test="${follow.followState eq true}">
-	      			<button onclick="follow(false, ${follow.toUser.id})" class="following_btn">팔로잉</button>
-	        	</c:when>
-	        	<c:otherwise>
-	        		<button onclick="follow(true, ${follow.toUser.id})" class="follow_btn">팔로우</button>
-	        	</c:otherwise>
-	        </c:choose>
-        </c:if>
+       
+        <div id="follow_item_${status.count}">
+	        <c:if test="${principal.user.id ne follow.toUser.id}">
+		        <c:choose>
+		        	<c:when test="${follow.followState eq true}">
+		      			<button onclick="follow(false, ${follow.toUser.id}, ${status.count})" class="following_btn">팔로잉</button>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<button onclick="follow(true, ${follow.toUser.id}, ${status.count})" class="follow_btn">팔로우</button>
+		        	</c:otherwise>
+		        </c:choose>
+	        </c:if>
+        </div>
       </li>
      </c:forEach>
       
     </ul>
   </main>
   	<%@ include file="../include/footer.jsp" %>
+    <script src="/js/follow.js"></script>
   
 </body>
 </html>
