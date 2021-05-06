@@ -53,4 +53,4 @@ logging:
     com.cos.instagram.controller: debug 
       
 file:
-  path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/upload/
+  path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/static/upload/

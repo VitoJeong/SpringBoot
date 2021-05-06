@@ -19,10 +19,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Image {
 
 //	private int id;
@@ -39,11 +45,15 @@ public class Image {
 	private User user;
 	
 	// Tag List
+	// 빌더 패턴을 통해서는 필드에 아무리 기본값을 명시해뒀더라도 기본값이 null아니면 0이 나오므로
+	// @Builder.Default 기본값으로 생성
+	@Builder.Default
 	@OneToMany(mappedBy = "image")
 	@JsonManagedReference
 	private List<Tag> tags = new ArrayList<>();
 	
 	// Like List
+	@Builder.Default
 	@OneToMany(mappedBy = "image")
 	private List<Likes> likes = new ArrayList<>();
 	
