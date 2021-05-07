@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,21 +17,38 @@ import com.cos.instagram.model.Follow;
 import com.cos.instagram.model.Image;
 import com.cos.instagram.model.Likes;
 import com.cos.instagram.model.User;
+import com.cos.instagram.repository.ImageRepository;
 import com.cos.instagram.repository.UserRepository;
 
 
 @Controller
 public class TestController {
 
-	private UserRepository userRepository;
+	private UserRepository mUserRepository;
 	
-	public TestController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	private ImageRepository mImageRepository;
+	
+	public TestController(UserRepository mUserRepository, ImageRepository mImageRepository) {
+		this.mUserRepository = mUserRepository;
+		this.mImageRepository = mImageRepository;
 	}
 
+	
+	@GetMapping("/test/image/feed")
+	public @ResponseBody Page<Image> testImageFeed
+	(
+			@PageableDefault(size=2, sort="id", direction = Direction.DESC) Pageable pageable
+	)
+	{
+		Long userId = 4l;
+		
+		Page<Image> iamges = mImageRepository.findImage(userId, pageable);
+		return iamges;
+	}
+	
 	@GetMapping("/test/user/{id}")
 	public @ResponseBody User testUser(@PathVariable Long id) {
-		Optional<User> optionalUser = userRepository.findById(id);
+		Optional<User> optionalUser = mUserRepository.findById(id);
 		
 		User user = optionalUser.get();
 		
