@@ -23,3 +23,4 @@
 <script src="/js/app.js"></script>
 <script src="/js/modal.js"></script>
 <script src="/js/profile.js"></script>
+<script src="/js/feed.js"></script>

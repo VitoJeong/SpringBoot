@@ -73,6 +73,17 @@ public class ImageController {
 		return "image/feed";
 	}
 	
+	@GetMapping("/image/feed/scroll")
+	public @ResponseBody List<Image> imageFeedScroll(@AuthenticationPrincipal MyUserDetail userDetail,
+			@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+
+		// 내가 팔로우한 친구들의 사진
+		Page<Image> pageImages = mImageRepository.findImage(userDetail.getUser().getId(), pageable);
+		
+		List<Image> images = pageImages.getContent();
+		return images;
+	}
+	
 	@GetMapping("/image/upload")
 	public String imageUpload() {
 		return "image/image_upload";
