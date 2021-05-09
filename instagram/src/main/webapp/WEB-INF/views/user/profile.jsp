@@ -45,24 +45,26 @@
 	            <button class="profile_follow_btn">사진 업로드</button>
 	          </a>
 	          <a href="/user/edit/${principal.user.id}">
-	            <button class="profile_edit_btn">Edit Profile</button>
+	            <button class="profile_edit_btn">회원수정</button>
 	          </a>
 	          <i class="fa fa-cog fa-lg"></i>
 	        </c:if>
         </div>
         <ul class="profile__stats">
-          <li class="profile__stat">
-            <span class="profile__stat-number">313</span> 게시물
-          </li>
-          <li class="profile__stat">
-            <span class="profile__stat-number">4,444</span> 
-            <a href="/follow/follower/${user.id}">팔로워</a>
-          </li>
-          <li class="profile__stat">
-            <span class="profile__stat-number">44</span> 
-            <a href="/follow/follow/${user.id}">팔로잉</a>
-          </li>
-        </ul>
+			<li class="profile__stat">
+				<span class="profile__stat-number">${imageCount}</span> 
+				게시물
+			</li>
+			<li class="profile__stat">
+				<span class="profile__stat-number">${followerCount} </span>
+				<a href="/follow/follower/${user.id}">팔로워</a>
+			</li>
+			<li class="profile__stat">
+				<span class="profile__stat-number">${followCount} </span>
+				<a href="/follow/follow/${user.id}">팔로우</a>
+			</li>
+		</ul>
+
         <p class="profile__bio">
           <span class="profile__fullname">${user.name}</span>
           ${user.bio }
@@ -70,131 +72,25 @@
         </p>
       </div>
     </header>
+    
     <div class="profile__photo-grid">
-      <div class="profile__photo-row">
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="profile__photo-row">
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="profile__photo-row">
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-        <div class="profile__photo">
-          <a href="image-detail.html">
-            <img src="/images/feedPhoto.jpg">
-            <div class="profile__photo-overlay">
-              <span class="profile__photo-stat">
-                <i class="fa fa-heart"></i> 504
-              </span>
-              <span class="profile__photo-stat">
-                <i class="fa fa-comment"></i> 22
-              </span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
+				
+		<!-- 유저가 업로드한 Feed 사진 -->
+		<c:forEach var="image" items="${user.images}">
+			<div class="profile__photo">
+				<a href="image-detail.html"> <img src="/upload/${image.postImage}"></a>
+				<div class="profile__photo-overlay">
+					<span class="profile__photo-stat"> 
+						<i class="fa fa-heart"></i> ${image.likeCount}
+					</span> 
+					<span class="profile__photo-stat"> 
+						<i class="fa fa-comment"></i> 22
+					</span>
+				</div>
+			</div>									
+		</c:forEach>
+				
+	</div>
   </main>
   
   <div class="profile__overlay">

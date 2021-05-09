@@ -52,5 +52,11 @@ logging:
     com.cos.instagram: info
     com.cos.instagram.controller: debug 
       
-file:
-  path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/static/upload/
+#file:
+#  path: C:/Users/ckdgh/git/SpringBoot/instagram/src/main/resources/static/upload/
+  
+custom:
+  path:
+    upload-images: 'C:/src/springboot/insta/'
+
+

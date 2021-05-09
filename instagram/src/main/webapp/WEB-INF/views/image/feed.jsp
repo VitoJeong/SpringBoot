@@ -28,6 +28,15 @@
 	      <div class="photo__info">
 	          <div class="photo__actions">
 	            <span class="photo__action">
+	            	<!-- 좋아요 이미지 -->
+	            <c:choose>
+	            	<c:when test="${image.heart eq true}">
+	            		<i onClick="onFeedLoad(${image.id})" id="${image.id}" class="fa fa-heart heart heart-clicked"></i>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<i onClick="onFeedLoad(${image.id})" id="${image.id}" class="fa fa-heart-o heart"></i>
+	            	</c:otherwise>
+	            </c:choose>
 	              <i class="fa fa-heart-o heart"></i>
 	            </span>
 	            <span class="photo__action">
@@ -59,7 +68,7 @@
     </c:forEach>
   </main>
    <%@ include file = "../include/footer.jsp" %>
-
+	<script src="/js/like.js"></script>
 
 </body>
 </html>

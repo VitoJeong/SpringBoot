@@ -20,9 +20,9 @@ function make_feed_box(image){
 	feed_box += `<div class="photo__info"><div class="photo__actions"><span class="photo__action">`;
 	
 	if(image.heart == true){
-		feed_box += `<i id="${image.id}" class="fa fa-heart heart heart-clicked"></i>`;
+		feed_box += `<i onClick="onFeedLoad(${image.id})" id="${image.id}" class="fa fa-heart heart heart-clicked"></i>`;
 	}else{
-		feed_box += `<i id="${image.id}" class="fa fa-heart-o heart"></i>`;
+		feed_box += `<i onClick="onFeedLoad(${image.id})" id="${image.id}" class="fa fa-heart-o heart"></i>`;
 	}
 		
 	feed_box += `</span> <span class="photo__action">`;

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.cos.instagram.model.Image;
 import com.cos.instagram.model.User;
 import com.cos.instagram.repository.FollowRepository;
+import com.cos.instagram.repository.LikesRepository;
 import com.cos.instagram.repository.UserRepository;
 import com.cos.instagram.service.MyUserDetail;
 
@@ -25,15 +27,24 @@ public class UserController {
 	
 	private BCryptPasswordEncoder encoder;
 	
-	private UserRepository userRepository;
+	private UserRepository mUserRepository;
 	
-	private FollowRepository followRepository;
+	private FollowRepository mFollowRepository;
 	
-	public UserController(BCryptPasswordEncoder encoder, UserRepository userRepository,
-			FollowRepository followRepository) {
+	private LikesRepository mLikesRepository;
+	
+	@Autowired
+	public UserController
+	(
+			BCryptPasswordEncoder encoder, 
+			UserRepository mUserRepository,
+			FollowRepository mFollowRepository,
+			LikesRepository mLikesRepository
+	) {
 		this.encoder = encoder;
-		this.userRepository = userRepository;
-		this.followRepository = followRepository;
+		this.mUserRepository = mUserRepository;
+		this.mFollowRepository = mFollowRepository;
+		this.mLikesRepository = mLikesRepository;
 	}
 
 	@GetMapping("/auth/login")
@@ -55,7 +66,7 @@ public class UserController {
 		log.debug("rawPassword : " + rawPassword);
 		log.debug("encPassword : " + encPassword);
 		
-		userRepository.save(user);
+		mUserRepository.save(user);
 		
 		return "redirect:/auth/login";
 	}
@@ -78,15 +89,38 @@ public class UserController {
 		 */		
 		
 		
-		// 4번 임시
-		Optional<User> optionalToUser = userRepository.findById(id);
-		User toUser = optionalToUser.get();
-		model.addAttribute("user", toUser);
+		User user = mUserRepository.findById(id).get();
+		
+		// 1. imageCount
+		int imageCount = user.getImages().size();
+		model.addAttribute("imageCount", imageCount);
+		
+		// 2번 followCount 
+		// (select count(*) from follow where fromUserId = 1)
+		int followCount = 
+				mFollowRepository.countByFromUserId(user.getId());
+		model.addAttribute("followCount", followCount);
+		
+		// 3번 followerCount 
+		// (select count(*) from follower where toUserId = 1)
+		int followerCount = 
+				mFollowRepository.countByToUserId(user.getId());
+		model.addAttribute("followerCount", followerCount);
+		
+		// 4번 likeCount
+		for(Image item: user.getImages()) {
+			int likeCount = 
+					mLikesRepository.countByImageId(item.getId());
+			item.setLikeCount(likeCount);
+		}
+
+
+		model.addAttribute("user", user);
 		
 		// 5. followCheck
-		User user = userDetail.getUser();
+		User principal = userDetail.getUser();
 		
-		int followCheck = followRepository.countByFromUserIdAndToUserId(user.getId(), id);
+		int followCheck = mFollowRepository.countByFromUserIdAndToUserId(principal.getId(), id);
 		
 		log.info("followCheck : " + (followCheck == 1 ? "팔로우" : "언팔로우"));
 		model.addAttribute("followCheck",followCheck);
@@ -99,7 +133,7 @@ public class UserController {
 		
 		// 해당 ID로 select 해서 수정
 		// findByUserInfo() 사용
-		userRepository.findById(id);
+		mUserRepository.findById(id);
 		
 		return "user/profile_edit";
 	}
