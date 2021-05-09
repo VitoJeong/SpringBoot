@@ -17,60 +17,67 @@
 <body>
 	<%@ include file="../include/nav.jsp" %>
 	<main id="profile">
-    <header class="profile__header">
-      <div class="avatar__container">
-          <form id="frm_profile_img" action="/user/profileUpload" method="post">
-            <input type="file" name="profileImage" style="display: none;"/>
-          </form>
-          <img src="/images/avatar.jpg" id="profile_image" style="cursor:pointer" />
-      </div>
-      <div class="profile__info">
-        <div class="profile__title">
-          <h1>${user.userName}</h1>
-          <div id="follow_check">
-          	<c:if test="${principal.user.id ne user.id}">
-	          <c:choose>
-	          	<c:when test="${followCheck eq 1}">
-	            	<button onclick="follow(false, ${user.id})" class="profile_edit_btn">팔로잉</button>
-	          	</c:when>
-	          	<c:otherwise>
-	            	<button onclick="follow(true, ${user.id})" class="profile_follow_btn">팔로우</button>
-	          	</c:otherwise>
-	          </c:choose>
-	        </c:if>
-          </div>
-        
-	       	<c:if test="${principal.user.id eq user.id}">
-	          <a href="/image/upload">
-	            <button class="profile_follow_btn">사진 업로드</button>
-	          </a>
-	          <a href="/user/edit/${principal.user.id}">
-	            <button class="profile_edit_btn">회원수정</button>
-	          </a>
-	          <i class="fa fa-cog fa-lg"></i>
-	        </c:if>
-        </div>
-        <ul class="profile__stats">
-			<li class="profile__stat">
-				<span class="profile__stat-number">${imageCount}</span> 
-				게시물
-			</li>
-			<li class="profile__stat">
-				<span class="profile__stat-number">${followerCount} </span>
-				<a href="/follow/follower/${user.id}">팔로워</a>
-			</li>
-			<li class="profile__stat">
-				<span class="profile__stat-number">${followCount} </span>
-				<a href="/follow/follow/${user.id}">팔로우</a>
-			</li>
-		</ul>
-
-        <p class="profile__bio">
-          <span class="profile__fullname">${user.name}</span>
-          ${user.bio }
-          <a href="${user.website }" class="profile__link">${user.website }</a>
-        </p>
-      </div>
+    	<header class="profile__header">
+    		<div class="avatar__container">
+	          <form id="frm_profile_img" action="/user/profileUpload" method="post">
+	            <input type="file" name="profileImage" style="display: none;"/>
+	          </form>
+	          <c:if test="${empty user.profileImage}">
+	          	<img src="/images/avatar.jpg" id="profile_image" style="cursor:pointer" />
+	          </c:if>
+	          <c:if test="${not empty user.profileImage}">
+	          	<img src="/upload/${user.profileImage}" id="profile_image" style="cursor:pointer" />
+	          </c:if>
+      		</div>
+      		<div class="profile__info">
+	        <div class="profile__title">
+	          <h1>${user.userName}</h1>
+	          	<c:if test="${principal.user.id ne user.id}">
+		          <div id="follow_check">
+			          <c:choose>
+			          	<c:when test="${followCheck eq 1}">
+			            	<button onclick="follow(false, ${user.id})" class="profile_edit_btn">팔로잉</button>
+			          	</c:when>
+			          	<c:otherwise>
+			            	<button onclick="follow(true, ${user.id})" class="profile_follow_btn">팔로우</button>
+			          	</c:otherwise>
+			          </c:choose>
+		          </div>
+		        </c:if>
+	        
+		       	<c:if test="${principal.user.id eq user.id}">
+		          <a href="/image/upload">
+		            <button class="profile_follow_btn">사진등록</button>
+		          </a>
+		          <a href="/user/edit">
+		            <button class="profile_edit_btn">회원수정</button>
+		          </a>
+		          <i class="fa fa-cog fa-lg"></i>
+		        </c:if>
+	        </div>
+	        <ul class="profile__stats">
+				<li class="profile__stat">
+					<span class="profile__stat-number">${imageCount}</span> 
+					게시물
+				</li>
+				<li class="profile__stat">
+					<span class="profile__stat-number">${followerCount} </span>
+					<a href="/follow/follower/${user.id}">팔로워</a>
+				</li>
+				<li class="profile__stat">
+					<span class="profile__stat-number">${followCount} </span>
+					<a href="/follow/follow/${user.id}">팔로우</a>
+				</li>
+			</ul>
+	
+	        <div class="profile__bio">
+	        	<p class="profile__fullname">${user.name}</p>					
+				<p>${user.bio }</p> 
+				<p>
+					<a href="${user.website}" class="profile__link">${user.website}</a>
+				</p>
+			</div>
+	      </div>
     </header>
     
     <div class="profile__photo-grid">

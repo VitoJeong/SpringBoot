@@ -1,8 +1,14 @@
 package com.cos.instagram.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cos.instagram.model.Image;
 import com.cos.instagram.model.User;
@@ -24,6 +33,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 	
+	@Value("${custom.path.upload-images}")
+	private String fileRealPath;
 	
 	private BCryptPasswordEncoder encoder;
 	
@@ -136,6 +147,68 @@ public class UserController {
 		mUserRepository.findById(id);
 		
 		return "user/profile_edit";
+	}
+	
+	@PostMapping("/user/profileUpload")
+	public String userProfileUpload
+	(
+			@RequestParam("profileImage") MultipartFile file,
+			@AuthenticationPrincipal MyUserDetail userDetail
+	) throws IOException
+	{
+		User principal = userDetail.getUser();
+		
+		// 파일 처리
+		UUID uuid = UUID.randomUUID();
+		String uuidFilename = uuid+"_"+file.getOriginalFilename();
+		Path filePath = Paths.get(fileRealPath+uuidFilename);
+		Files.write(filePath, file.getBytes());
+
+		// 영속화
+		Optional<User> oUser = mUserRepository.findById(principal.getId());		
+		User user = oUser.get();
+		
+		// 값 변경
+		user.setProfileImage(uuidFilename);
+		
+		// 다시 영속화 및 저장
+		mUserRepository.save(user);
+		return "redirect:/user/"+principal.getId();
+	}
+		
+	@GetMapping("/user/edit")
+	public String userEdit(
+			@AuthenticationPrincipal MyUserDetail userDetail,
+			Model model) {
+		
+		Optional<User> oUser = mUserRepository.findById(userDetail.getUser().getId());
+		User user = oUser.get();
+		model.addAttribute("user", user);
+		return "user/profile_edit";
+	}
+		
+	@PutMapping("/user/editProc")
+	public String userEditProc(
+			User requestUser,
+			@AuthenticationPrincipal MyUserDetail userDetail) {
+		
+		// 영속화
+		Optional<User> oUser = mUserRepository.findById(userDetail.getUser().getId());
+		User user = oUser.get();
+		
+		// 값 변경
+		user.setName(requestUser.getName());
+		user.setUserName(requestUser.getUserName());
+		user.setWebsite(requestUser.getWebsite());
+		user.setBio(requestUser.getBio());
+		user.setEmail(requestUser.getEmail());
+		user.setPhone(requestUser.getPhone());
+		user.setGender(requestUser.getGender());
+		
+		// 다시 영속화 및 flush
+		mUserRepository.save(user);
+		
+		return "redirect:/user/"+userDetail.getUser().getId();
 	}
 	
 }
