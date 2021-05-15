@@ -19,15 +19,11 @@
 	<main id="profile">
     	<header class="profile__header">
     		<div class="avatar__container">
-	          <form id="frm_profile_img" action="/user/profileUpload" method="post">
+	          <form id="frm_profile_img" action="/user/profileUpload" method="post" enctype="multipart/form-data">
 	            <input type="file" name="profileImage" style="display: none;"/>
 	          </form>
-	          <c:if test="${empty user.profileImage}">
-	          	<img src="/images/avatar.jpg" id="profile_image" style="cursor:pointer" />
-	          </c:if>
-	          <c:if test="${not empty user.profileImage}">
-	          	<img src="/upload/${user.profileImage}" id="profile_image" style="cursor:pointer" />
-	          </c:if>
+
+			  <img src="/upload/${user.profileImage}"  onerror="this.onerror=null; this.src='/images/avatar.jpg'" id="profile_image" style="cursor: pointer" />
       		</div>
       		<div class="profile__info">
 	        <div class="profile__title">
@@ -49,7 +45,7 @@
 		          <a href="/image/upload">
 		            <button class="profile_follow_btn">사진등록</button>
 		          </a>
-		          <a href="/user/edit">
+				  <a href="/user/edit">
 		            <button class="profile_edit_btn">회원수정</button>
 		          </a>
 		          <i class="fa fa-cog fa-lg"></i>

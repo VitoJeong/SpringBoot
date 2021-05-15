@@ -57,6 +57,24 @@ public class ImageController {
 		this.mLikesRepository = mLikesRepository;
 	}
 	
+	@GetMapping("/image/explore")
+	public String imageExplore(Model model,
+			@PageableDefault(size = 9, sort = "id", direction = Direction.DESC) Pageable pageable) {
+
+		// 알고리즘 ( 내 주변에서 좋아요가 가장 많은 순으로 해보는 것 추천)
+		Page<Image> pImages = mImageRepository.findAll(pageable);
+		List<Image> images = pImages.getContent();
+
+		// 4번 likeCount
+		for (Image item : images) {
+			int likeCount = mLikesRepository.countByImageId(item.getId());
+			item.setLikeCount(likeCount);
+		}
+
+		model.addAttribute("images", images);
+		return "image/explore";
+	}
+	
 	@PostMapping("/image/like/{id}")
 	public @ResponseBody String imageLike
 	(

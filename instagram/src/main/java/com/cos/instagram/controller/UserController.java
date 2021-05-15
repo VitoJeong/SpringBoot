@@ -139,16 +139,6 @@ public class UserController {
 		return "user/profile";
 	}
 	
-	@GetMapping("/user/edit/{id}")
-	public String userEdit(@PathVariable Long id) {
-		
-		// 해당 ID로 select 해서 수정
-		// findByUserInfo() 사용
-		mUserRepository.findById(id);
-		
-		return "user/profile_edit";
-	}
-	
 	@PostMapping("/user/profileUpload")
 	public String userProfileUpload
 	(
@@ -184,6 +174,17 @@ public class UserController {
 		Optional<User> oUser = mUserRepository.findById(userDetail.getUser().getId());
 		User user = oUser.get();
 		model.addAttribute("user", user);
+		return "user/profile_edit";
+	}
+	
+
+	@GetMapping("/user/edit/{id}")
+	public String userEdit(@PathVariable Long id) {
+		
+		// 해당 ID로 select 해서 수정
+		// findByUserInfo() 사용
+		mUserRepository.findById(id);
+		
 		return "user/profile_edit";
 	}
 		

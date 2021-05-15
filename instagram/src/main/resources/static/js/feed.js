@@ -11,9 +11,9 @@ $(window).scroll(function() {
 function make_feed_box(image){
     let feed_box = `<div class="photo u-default-box">`;
 	feed_box += `<header class="photo__header">`;	
-	feed_box += `<img src="/images/avatar.jpg" />`;
+	feed_box += `<img src="/upload/${image.user.profileImage}" onerror="this.onerror=null; this.src='/images/avatar.jpg'"/>`;
 	feed_box += `<div class="photo_user_info">`;
-	feed_box += `<span class="photo__username">${image.user.username}</span>`;
+	feed_box += `<span class="photo__username">${image.user.userName}</span>`;
 	feed_box += `<span class="photo__location">${image.location}</span></div></header>`;
 	feed_box += `<div class="photo_post_image">`;
 	feed_box += `<img src="/upload/${image.postImage}" /></div>`;
@@ -28,7 +28,7 @@ function make_feed_box(image){
 	feed_box += `</span> <span class="photo__action">`;
 	feed_box += `<i class="fa fa-comment-o"></i></span></div>`;
 	feed_box += `<span class="photo__likes">5,103 likes</span><div class="photo_caption">`;
-	feed_box += `<span class="photo__username">${image.user.username} </span>`;
+	feed_box += `<span class="photo__username">${image.user.userName} </span>`;
 	feed_box += `${image.caption}</div><div class="photo_tag">`;
     
 	image.tags.forEach(function(tag){

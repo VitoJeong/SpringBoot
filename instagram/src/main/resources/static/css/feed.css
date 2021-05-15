@@ -23,6 +23,32 @@
   margin-right: 10px;
 }
 
+.photo_user_info {
+	display: grid;
+	grid-template-column : auto;
+	grid-gap : 6px 0;
+}
+
+.photo__username {
+	font-weight: 600;
+}
+
+/* 수정 좋아요 카운트 증가 */ 
+.photo_caption {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+.photo_tag {
+	color: #0092CF;	
+	margin-bottom: 6px;
+}
+
+.photo_post_image img {
+	width: 600px;
+	max-height: 600px;
+}
+
 .photo img {
   max-width: 100%;
 }
@@ -48,7 +74,6 @@
 .photo__info .photo__likes {
   font-weight: 600;
   margin-bottom: 15px;
-  display: block;
 }
 
 .photo__comment .photo__comment-author {

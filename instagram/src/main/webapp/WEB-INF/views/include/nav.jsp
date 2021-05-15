@@ -10,20 +10,20 @@
 
 
 <nav class="navigation">
-    <a href="feed.html">
+    <a href="/">
       <img src="/images/logo.png" />
     </a>
     <input type="text" placeholder="Search">
     <div class="navigation__links">
-      <a href="/image/explore/${principal.user.id}l" class="navigation__link">
-      	<i class="fa fa-compass"></i> 
-      </a>
-      <a href="#" class="navigation__link like_popup">
-      	<i class="fa fa-heart-o"></i>
-      </a>
-      <a href="/user/${principal.user.id}" class="navigation__link">
-      	<i class="fa fa-user-o"></i>
-      </a>
+	    <a href="/image/explore" class="navigation__link"> 
+			<i class="fa fa-compass"></i>
+		</a> 
+		<a href="#" class="navigation__link like_popup"> 
+			<i class="fa fa-heart-o"></i>
+		</a> 
+		<a href="/user/${principal.user.id}" class="navigation__link"> 
+			<i class="fa fa-user-o"></i>
+		</a>
     </div>
   </nav>
 
