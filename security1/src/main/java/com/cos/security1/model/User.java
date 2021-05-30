@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -19,6 +21,7 @@ public class User {
 	
 	private String username;
 	
+	@JsonIgnore
 	private String password;
 	
 	private String email;
