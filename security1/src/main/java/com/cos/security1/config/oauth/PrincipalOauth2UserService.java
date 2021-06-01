@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.cos.security1.config.auth.PrincipalDetails;
 import com.cos.security1.config.oauth.provider.FacebookUserInfo;
 import com.cos.security1.config.oauth.provider.GoogleUserInfo;
+import com.cos.security1.config.oauth.provider.NaverUserInfo;
 import com.cos.security1.config.oauth.provider.OAuth2UserInfo;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
@@ -50,14 +51,24 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		String registrationId = userRequest.getClientRegistration().getRegistrationId();
 		
 		OAuth2UserInfo oAuth2UserInfo = null;
-		if(registrationId.equals("google")) {
+		if(registrationId.equals("google")) 
+		{
 			log.info("Google Log-In");
 			oAuth2UserInfo = new GoogleUserInfo(attributes);
-		} else if(registrationId.equals("facebook")) {
+		} 
+		else if(registrationId.equals("facebook")) 
+		{
 			log.info("Facebook Log-In");
 			oAuth2UserInfo = new FacebookUserInfo(attributes);
-		} else {
-			log.warn("소셜 로그인은 구글과 페이스북만 가능합니다.");
+		} 
+		else if(registrationId.equals("naver")) 
+		{
+			log.info("Naver Log-In");
+			oAuth2UserInfo = new NaverUserInfo(attributes);
+		} 
+		else 
+		{
+			log.warn("소셜 로그인은 구글, 페이스북, 네이버로 이용 가능합니다.");
 		}
 		
 		String provider = oAuth2UserInfo.getProvider(); // google
