@@ -17,13 +17,9 @@ import com.cos.security1.config.oauth.PrincipalOauth2UserService;
 							prePostEnabled = true) // secure annotation, preAuthorize 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Autowired
 	private PrincipalOauth2UserService oauth2UserService;
 	
-	@Autowired
-	public SecurityConfig(PrincipalOauth2UserService oauth2UserService) {
-		this.oauth2UserService = oauth2UserService;
-	}
-
 	@Bean // 메서드의 리턴 오브젝트를 컨테이너에 등록
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();

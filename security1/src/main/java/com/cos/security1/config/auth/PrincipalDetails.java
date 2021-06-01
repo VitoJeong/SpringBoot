@@ -1,4 +1,4 @@
-package com.cos.security1.auth;
+package com.cos.security1.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,9 +25,17 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	// 콤포지션
 	private User user;
+	private Map<String, Object> attributes;
 	
+	// 일반 로그인
 	public PrincipalDetails(User user) {
 		this.user = user;
+	}
+	
+	// OAuth 로그인
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
 	}
 
 	// User의 권한을 리턴
@@ -79,13 +87,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 
 	@Override
 	public Map<String, Object> getAttributes() {
-		// TODO Auto-generated method stub
-		return null;
+		return attributes;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

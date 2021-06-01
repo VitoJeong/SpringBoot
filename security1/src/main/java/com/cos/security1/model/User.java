@@ -10,10 +10,14 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class User {
 
 	@Id @GeneratedValue
@@ -34,5 +38,17 @@ public class User {
 	
 	@CreationTimestamp
 	private Timestamp createDate;
+
+	@Builder
+	public User( String username, String password, String email, String role, String provider,
+			String providerId) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		this.provider = provider;
+		this.providerId = providerId;
+	}
+	
 	
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cos.security1.auth.PrincipalDetails;
+import com.cos.security1.config.auth.PrincipalDetails;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 
@@ -41,10 +41,10 @@ public class IndexController {
 		@AuthenticationPrincipal PrincipalDetails userDetails
 	) 
 	{
-		System.out.println("/test/login ============");
+		log.info("/test/login ============");
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-		System.out.println("authentication = " + principalDetails.getUser());
-		System.out.println("userDetails = " + userDetails.getUser());
+		log.info("authentication = " + principalDetails.getUser());
+		log.info("userDetails = " + userDetails.getUser());
 		return principalDetails.getUser().toString();
 	}
 	
@@ -55,10 +55,10 @@ public class IndexController {
 		@AuthenticationPrincipal OAuth2User oauth
 	) 
 	{
-		System.out.println("/test/login ============");
+		log.info("/test/login ============");
 		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-		System.out.println("authentication = " + oAuth2User.getAttributes());
-		System.out.println("oAuth2User = " + oauth.getAttributes());
+		log.info("authentication = " + oAuth2User.getAttributes());
+		log.info("oAuth2User = " + oauth.getAttributes());
 		return oauth.getAttributes().toString();
 	}
 	
@@ -73,8 +73,9 @@ public class IndexController {
 	}
 
 	@GetMapping("/user")
-	public @ResponseBody String user() {
-		return "user";
+	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+		log.info("principalDetails = " + principalDetails.getUser());
+		return principalDetails.getUser().toString();
 	}
 	
 	@GetMapping("/admin")

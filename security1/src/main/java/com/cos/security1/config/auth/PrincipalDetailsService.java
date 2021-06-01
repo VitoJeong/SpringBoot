@@ -1,4 +1,4 @@
-package com.cos.security1.auth;
+package com.cos.security1.config.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +22,14 @@ public class PrincipalDetailsService implements UserDetailsService{
 	}
 
 	// Security Session(Authentication(UserDetails))
+	// 함수 종료시 @AuthenticationPrincipal 어노테이션이 생성됨
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		User user = userRepository.findByUsername(username);
 		if(user != null) {
 			return new PrincipalDetails(user);
+			// Authentication에 저장(일반 로그인)
 		}
 		return null;
 	}
