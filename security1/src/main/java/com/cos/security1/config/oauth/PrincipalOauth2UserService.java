@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.cos.security1.config.auth.PrincipalDetails;
 import com.cos.security1.config.oauth.provider.FacebookUserInfo;
 import com.cos.security1.config.oauth.provider.GoogleUserInfo;
+import com.cos.security1.config.oauth.provider.KakaoUserInfo;
 import com.cos.security1.config.oauth.provider.NaverUserInfo;
 import com.cos.security1.config.oauth.provider.OAuth2UserInfo;
 import com.cos.security1.model.User;
@@ -66,9 +67,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 			log.info("Naver Log-In");
 			oAuth2UserInfo = new NaverUserInfo(attributes);
 		} 
+		else if(registrationId.equals("kakao")) 
+		{
+			log.info("Kakao Log-In");
+			oAuth2UserInfo = new KakaoUserInfo(attributes);
+		} 
 		else 
 		{
-			log.warn("소셜 로그인은 구글, 페이스북, 네이버로 이용 가능합니다.");
+			log.warn("소셜 로그인은 구글, 페이스북, 네이버, 카카오로 이용 가능합니다.");
 		}
 		
 		String provider = oAuth2UserInfo.getProvider(); // google
