@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
+import com.cos.jwt.config.jwt.JwtAuthenticationFilter;
 import com.cos.jwt.filter.MyFilterA;
 import com.cos.jwt.filter.MyFilterC;
 
@@ -34,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.addFilter(corsfilter) // @CrossOrigin(인증X), Security filter에 등록 인증
 		.formLogin().disable() // formLogin 사용하지 않음
 		.httpBasic().disable() // 기본적인 http 로그인 사용하지 않음
+		.addFilter(new JwtAuthenticationFilter(authenticationManager())) // AuthenticationManager
 		.authorizeRequests()
 		.antMatchers("/api/v1/user/**")
 		.access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")

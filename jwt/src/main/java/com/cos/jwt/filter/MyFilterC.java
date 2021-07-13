@@ -27,9 +27,9 @@ public class MyFilterC implements Filter{
 		// 토큰 : summer
 		if(req.getMethod().equals("POST")) {
 			String headerAuth = req.getHeader("Authorization");
-			log.info(req.getMethod());
+			log.info(req.getRequestURI());
 			log.info(headerAuth);
-			
+			if(req.getRequestURI().equals("/join")) chain.doFilter(req, res);
 			if(headerAuth.equals("summer")) {
 				chain.doFilter(req, res); // 설정하지 않으면 프로세스 진행안됨
 			} else {

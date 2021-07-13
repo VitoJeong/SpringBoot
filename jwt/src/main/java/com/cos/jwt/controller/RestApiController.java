@@ -13,9 +13,11 @@ import com.cos.jwt.repository.UserRepository;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class RestApiController {
 
 	private final BCryptPasswordEncoder encoder;
@@ -39,6 +41,8 @@ public class RestApiController {
 		String password = encoder.encode(userToJoin.getPassword());
 		if(Objects.nonNull(userRepository.findByUserName(userName))) throw new IllegalArgumentException("userName");
 		
+		
+		log.info("========" + password);
 		User user = new User();
 		user.setUserName(userToJoin.getUserName());
 		user.setPassword(password);
