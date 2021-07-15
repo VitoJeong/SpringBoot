@@ -46,6 +46,8 @@
     개발자가 리소스에 대한 액세스 정책을 정의 할 수 있다.
 
 ### Spring Security의 처리 과정
+![spring-security-structure](https://user-images.githubusercontent.com/63029576/125805936-601ecaa7-79ed-4f09-aba0-4fe080956ea8.png)
+
 1. HTTP 요청 수신 (Http Request) 및 AuthenticationFilter 통과
     * Spring Security 는 일련의(연결된) 필터 들을 가지고 있다.
     * 요청(request)은, 인증(Authentication)과 권한부여(Authorization)를 위해 이 필터들을 통과하게 된다.
