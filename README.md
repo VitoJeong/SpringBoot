@@ -6,7 +6,7 @@
 
 ![](../header.png)
 
-## 개발환경
+### 개발환경
 * 개발도구
   * STS 4
   * MySQL WorkBench 
@@ -23,7 +23,7 @@
 * 커뮤니티
   * Github
 
-## 기존 프로젝트와 다르게 구현한 점
+### 기존 프로젝트와 다르게 구현한 점
 
 1. Entity Id의 타입을 `int`가 아닌 `Long`로 변경하여 구현
 2. DI 사용시 필드주입 -> 생성자주입 방식으로 변경하여 구현
@@ -66,11 +66,11 @@
     * 만들어진 `UsernamePasswordAuthenticationToken`는 `AuthenticaionManager`의 인증 메서드를 호출하는데 사용됨
     * `AuthenticaionManager`는 단순한 인터페이스이며 실제 구현은 `ProviderManager` 이다.
 
-  ```
-  public interface AuthenticationManager {
-      Authenticaion authenticate(Authentication authentication) throw AuthenticaionException;
-  }
-  ```
+   ```
+   public interface AuthenticationManager {
+       Authenticaion authenticate(Authentication authentication) throw AuthenticaionException;
+   }
+   ```
 
     * `ProviderManager`에는 사용자 요청을 인증에 필요한 `AuthenticationProvdier` 목록이 있다.
     * `ProviderManager`는 제공된 각 `AuthenticationProvdier`를 살펴보고 전달된 인증 개체(`UsernamePasswordAuthenticationToken`)를 기반으로 사용자 인증을 시도한다.
