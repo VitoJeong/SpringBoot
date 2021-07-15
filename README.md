@@ -4,8 +4,6 @@
 
 [데어 프로그래밍](https://www.youtube.com/channel/UCVrhnbfe78ODeQglXtT1Elw/featured)님의 강좌를 통해 Spring Boot를 비롯한 관련 기술들을 배우기 위한 프로젝트들입니다.
 
-![](../header.png)
-
 ### 개발환경
 * 개발도구
   * STS 4
@@ -46,7 +44,7 @@
     개발자가 리소스에 대한 액세스 정책을 정의 할 수 있다.
 
 ### Spring Security의 처리 과정
-![spring-security-structure](https://user-images.githubusercontent.com/63029576/125805936-601ecaa7-79ed-4f09-aba0-4fe080956ea8.png)
+![F79C843E-48BA-4391-9848-46C2269C20A3](https://user-images.githubusercontent.com/63029576/125806434-6b34335d-5239-4d11-b43e-365c8e85b730.jpeg)
 
 1. HTTP 요청 수신 (Http Request) 및 AuthenticationFilter 통과
     * Spring Security 는 일련의(연결된) 필터 들을 가지고 있다.
