@@ -150,3 +150,36 @@ JWT(Json Web Token)은 토큰 기반 인증 방식으로, 클라이언트의 세
 * Header — **토큰의 유형**이나 `HMAC SHA256` 또는 `RSA`와 같이 **사용되는 해시 알고리즘**이 무엇으로 사용했는지 등 정보가 담긴다. Base64Url로 인코딩되어있다.
 * Payload — **클라이언트에 대한 정보**나, **meta Data**같은 내용이 들어있고, `Base64Url`로 인코딩되어있다.
 * Signature — header에서 지정한 알고리즘과 **secret 키**, 서명으로 payload와 header를 담는다.
+
+### JWT 보안 위험
+JWT는 자체 내에 정보를 가지고 있기 때문에 클라이언트가 해독해 정보를 볼 수 있다. 하지만 받는 자가 secret 키를 알고 있어야만 수정이 가능하다.
+
+### JWT의 저장
+웹에서는 2가지의 저장 방식이 있다.
+
+* Cookies
+* local/session storage.
+
+## 기본 인증 과정
+![tokenflow](https://user-images.githubusercontent.com/63029576/126043162-90f9770d-b4d6-4d2e-a3dd-dae236363020.png)
+
+1. 클라이언트가 로그인을 요청한다.
+2. 서버는 요청받은 ID/PW를 검증하고 토큰을 생성한다.
+3. 생성한 토큰을 클라이언트에게 전달하면서 저장시킨다.
+4. 이후 클라이언트가 모든 요청을 할 때 토큰을 Header에 포함시킨다.
+5. 서버는 토큰을 해독해 만료나 변조 여부를 확인하여 응답을 반환한다.
+6. 기한이 만료되었으면 토큰을 지워주고 재로그인을 하게 한다.
+
+### Spring Security의 토큰 인증 과정
+ ![spring-boot-jwt-mysql-spring-security-architecture](https://user-images.githubusercontent.com/63029576/126043105-7d2b1f00-befb-4af5-963f-da4d3efd0288.png)
+
+1. HTTP 리퀘스트 요청은 그대로 인증 필터로 들어온다.
+2. 여기서 토큰을 체크하는 토큰 유효성 검사가 들어가고 토큰이 없다면 컨트롤러에게 토큰 발급을 요청한다.
+3. 토큰 발급 요청을 받으면 `Token Provider`가 위치한 필터 체인의 `Authentication Manager`로 요청이 넘어간다.
+4. `Authentication Manager`는 `UserDetailsService`를 통해 객체 정보(ID/PW)를 저장/검증하고 다시 컨트롤러에게 정보를 넘긴다.
+5. 컨트롤러는 받은 정보를 통해 토큰을 발급받는다.
+6. 발급된 토큰을 컨트롤러가 다시 유저에게 넘긴다.
+
+## JWT의 문제점
+* 클라이언트가 계속 시스템을 이용하다가 access 토큰 기한이 만료된다면 사용중에 갑자기 로그인을 하라고 할 것이다.
+* 수명이 너무 짧다면 만료될때마다 로그인 해야하고, 수명이 너무 길면 해커에게 해독되어 사용될 가능성이 높아진다.
