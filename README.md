@@ -21,14 +21,16 @@
 * 커뮤니티
   * Github
 
+# instagram
+> Spring MVC, Spring Security, JPA(Hibernate), Mustache를 활용해 인스타그램을 구현 
+
 ### 기존 프로젝트와 다르게 구현한 점
 
 1. Entity Id의 타입을 `int`가 아닌 `Long`로 변경하여 구현
 2. DI 사용시 필드주입 -> 생성자주입 방식으로 변경하여 구현
 
-# Spring Security
+# security1
 > Spring security와 OAuth2를 활용해 로그인 기능을 구현
-
 
 ## Spring Security란?
 * 커스터마이징이 가능한 인증 및 액세스 제어 프레임워크이다.
@@ -129,3 +131,22 @@
     2. Refresh-Token(optional)
     : Access-Token 이 만료되기 전에 Authorization-Server에 전송해 토근 기간을 연장하는 데 사용된다.
     OAuth2 Type 중에는 Refresh-Token을 허용하지 않는 경우도 있다.
+    
+# jwt
+> Spring security와 JWT를 활용해 로그인 기능을 구현
+
+## 세션 저장소의 단점
+
+* 세션저장소에 장애가 일어나면, 시스템 전체가 문제가 생긴다.
+* 만약 메모리에 세션 정보가 들어있다면, 메모리가 많이 사용될 수 있다.
+* 클라이언트의 요청이 있을때마다 권한을 검증하기 위해, 매번 세션저장소에 세션 데이터를 조회해야 한다.
+
+## JWT
+> JSON 객체를 통해 안전하게 정보를 전송할 수 있는 웹표준(RFC7519)
+
+JWT(Json Web Token)은 토큰 기반 인증 방식으로, 클라이언트의 세션 상태를 저장하는 게 아니라 필요한 정보를 토큰 body에 저장해 클라이언트가 가지고 있고 그것을 증명서처럼 사용한다.
+
+### JWT의 기본 구성
+* Header — **토큰의 유형**이나 `HMAC SHA256` 또는 `RSA`와 같이 **사용되는 해시 알고리즘**이 무엇으로 사용했는지 등 정보가 담긴다. Base64Url로 인코딩되어있다.
+* Payload — **클라이언트에 대한 정보**나, **meta Data**같은 내용이 들어있고, `Base64Url`로 인코딩되어있다.
+* Signature — header에서 지정한 알고리즘과 **secret 키**, 서명으로 payload와 header를 담는다.
