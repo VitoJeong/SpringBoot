@@ -22,7 +22,7 @@
   * Github
 
 # instagram
-> Spring MVC, Spring Security, JPA(Hibernate), Mustache를 활용해 인스타그램을 구현 
+> Spring MVC, Spring Security, JPA(Hibernate), JSP, JSTL 활용해 인스타그램을 구현 
 
 ### 기존 프로젝트와 다르게 구현한 점
 
