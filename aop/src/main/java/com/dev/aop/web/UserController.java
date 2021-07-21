@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dev.aop.domain.User;
 import com.dev.aop.domain.UserRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,13 +67,9 @@ public class UserController {
 		log.debug("update");
 	}
 	
+	@AllArgsConstructor
 	@Getter
 	public class Response {
 		private Object data;
-
-		public Response(Object data) {
-			this.data = data;
-		}
-		
 	}
 }
