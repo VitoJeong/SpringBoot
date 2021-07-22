@@ -24,9 +24,27 @@ public class UserRepository {
 		return new User(1l, "nike", "1234", "0100000");
 	}
 	
-	public Long save(User user) {
+	public User save(UserPersistDto dto) {
 		log.debug("INSERT INTO user VALUES (.....)");
+		User user = new User(22L, 
+				dto.getUserName(), 
+				dto.getPassword(), 
+				dto.getPhone());
+		return user;
+	}
+	
+	public User update(Long id, UserPersistDto dto) {
 		
-		return 22l;
+		return new User(id, 
+				dto.getUserName(), 
+				dto.getPassword(), 
+				dto.getPhone());
+	}
+	
+	public boolean delete(Long id) {
+		
+		if (id > 10) throw new IllegalArgumentException("Handler");
+		
+		return true;
 	}
 }

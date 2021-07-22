@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.aop.domain.User;
+import com.dev.aop.domain.UserPersistDto;
 import com.dev.aop.domain.UserRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,16 +31,22 @@ public class UserController {
 
 	// http://localhost:8080/user
 	@GetMapping("/user")
-	public Response findAll() {
+	public ResponseEntity<CommonDto<?>> findAll() {
 		log.debug("findAll");
-		return new Response(userRepository.findAll());
+		List<User> list = userRepository.findAll();
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new CommonDto<>(list.size(), list));
 	}
 
 	// http://localhost:8080/user/1
 	@GetMapping("/user/{id}")
-	public Response findById(@PathVariable Long id) {
+	public ResponseEntity<?> findById(@PathVariable Long id) {
 		log.debug("findById: " + id);
-		return new Response(userRepository.findById(id));
+		User user = userRepository.findById(id);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new CommonDto<User>(user));
 	}
 	
 	// http://localhost:8080/user
@@ -46,30 +54,44 @@ public class UserController {
 	// x-www-form-urlencoded (request.getParameter())
 	// text/plain => @RequestBody
 	// application/json => @RequestBody(Object)
-	public ResponseEntity<Long> save(@RequestBody User user) {
+	public ResponseEntity<CommonDto<?>> save(@RequestBody UserPersistDto dto) {
 		log.debug("save");
-		log.debug("username: " + user.getUserName());
-		log.debug("password: " + user.getPassword());
-		log.debug("phone: " + user.getPhone());
-		
-		return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+		User user = userRepository.save(dto);
+		return ResponseEntity
+				.ok()
+				.body(new CommonDto<>(user));
 	}
 	
 	// http://localhost:8080/user/2
 	@DeleteMapping("/user/{id}")
-	public void delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		log.debug("delete");
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new CommonDto<>(userRepository.delete(id)));
 	}
 	
 	// http://localhost:8080/user/2
 	@PutMapping("/user/{id}")
-	public void update(String password, String phone) {
-		log.debug("update");
+	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserPersistDto dto) {
+		log.debug("update : " + dto.toString());
+		
+		
+		User user =userRepository.update(id, dto);
+		return ResponseEntity.ok(user);
 	}
 	
 	@AllArgsConstructor
+	@NoArgsConstructor
 	@Getter
-	public class Response {
-		private Object data;
+	public class CommonDto<T> {
+		private Integer total;
+		private T data;
+		
+		
+		public CommonDto(T data) {
+			this.data = data;
+		}
 	}
 }
