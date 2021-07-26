@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.aop.domain.CommonDto;
 import com.dev.aop.domain.User;
 import com.dev.aop.domain.UserPersistDto;
 import com.dev.aop.domain.UserRepository;
@@ -114,16 +115,4 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 	
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter
-	public class CommonDto<T> {
-		private Integer total;
-		private T data;
-		
-		
-		public CommonDto(T data) {
-			this.data = data;
-		}
-	}
 }

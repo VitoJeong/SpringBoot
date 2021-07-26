@@ -1,0 +1,4 @@
+[2021-07-26 21:47:48:843403][http-nio-8080-exec-2] WARN  com.dev.aop.config.BindingAdvice - com.dev.aop.web.UserController.update() => 필들 : userName, 메시지: 유저네임 키 값이 없습니다.
+[2021-07-26 21:47:48:843404][http-nio-8080-exec-2] WARN  com.dev.aop.config.BindingAdvice - com.dev.aop.web.UserController.update() => 필들 : userName, 메시지: 유저네임을 입력하세요.
+[2021-07-26 21:50:06:981237][http-nio-8080-exec-1] WARN  com.dev.aop.config.BindingAdvice - com.dev.aop.web.UserController.update() => 필들 : userName, 메시지: 유저네임을 입력하세요.
+[2021-07-26 21:50:06:981238][http-nio-8080-exec-1] WARN  com.dev.aop.config.BindingAdvice - com.dev.aop.web.UserController.update() => 필들 : userName, 메시지: 유저네임 키 값이 없습니다.
